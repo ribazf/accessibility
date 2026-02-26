@@ -14,7 +14,7 @@
     }
     /* Some sites use outline: 0 or outline: none; keyboard users cannot see focus. */
 
-    /* Issue 1: Low contrast – light gray on white, fails WCAG AA (ratio < 4.5:1) */
+    /* Issue 1: Low contrast – light gray on white, fails WCAG 2.2 AA (ratio < 4.5:1) */
     .bad-contrast {
       color: #b0b0b0;
       background-color: #ffffff;
@@ -34,7 +34,7 @@
     <!-- ========== Issue 1: Low color contrast ========== -->
     <section class="demo-section" aria-labelledby="issue1-heading">
       <h2 id="issue1-heading">1. Low color contrast</h2>
-      <p class="explanation">Below, text uses light gray on white. This fails WCAG AA (requires at least 4.5:1 for normal text). Many users with low vision or in bright light cannot read it.</p>
+      <p class="explanation">Below, text uses light gray on white. This fails WCAG 2.2 AA (requires at least 4.5:1 for normal text). Many users with low vision or in bright light cannot read it.</p>
       <p class="bad-contrast">
         This paragraph has very low contrast. It is hard to read for people with visual impairments or in bright environments. Do not use light gray (#b0b0b0) on white.
       </p>

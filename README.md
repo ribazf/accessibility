@@ -11,7 +11,7 @@ A minimal before-and-after accessibility demo (plain HTML, CSS, minimal JavaScri
 
 ## Issues covered
 
-1. **Low color contrast** – light gray on white vs WCAG AA–compliant contrast  
+1. **Low color contrast** – light gray on white vs WCAG 2.2 AA–compliant contrast  
 2. **Missing image description** – no `alt` vs meaningful `alt` text  
 3. **Keyboard not supported** – clickable `div` vs proper `button`  
 4. **No visible focus** – `outline: none` vs visible focus styles  
