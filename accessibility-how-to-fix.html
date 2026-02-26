@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accessibility Demo – How We Fix</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .code-snapshot {
+        background: #f0f0f0;
+        padding: 0.75rem 1rem;
+        border-radius: 4px;
+        overflow-x: auto;
+        font-size: 0.85rem;
+        margin: 0.5rem 0 0 0;
+      }
+      .code-snapshot code {
+        background: none;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>How We Fix the Issues</h1>
+      <p>
+        Brief fix and code snapshot for each of the six accessibility issues.
+      </p>
+      <nav aria-label="Demo navigation">
+        <a href="accessibility-issues.html">← Issues</a>
+        <span style="margin: 0 0.5rem">|</span>
+        <a href="accessibility-fixed.html">Fixed →</a>
+      </nav>
+    </header>
+
+    <main class="main-content">
+      <section class="demo-section" aria-labelledby="fix1-heading">
+        <h2 id="fix1-heading">1. Low color contrast</h2>
+        <p class="explanation">
+          Use text and background that meet at least 4.5:1 (WCAG 2.2 AA).
+          <a
+            href="https://webaim.org/resources/contrastchecker/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Check contrast (WebAIM Contrast Checker)</a
+          >.
+        </p>
+        <pre
+          class="code-snapshot"
+          aria-label="Code snapshot"
+        ><code>.good-contrast {
+  color: #1a1a1a;
+  background-color: #ffffff;
+  /* ~15.8:1 – passes AA */</code></pre>
+      </section>
+
+      <section class="demo-section" aria-labelledby="fix2-heading">
+        <h2 id="fix2-heading">2. Missing image description</h2>
+        <p class="explanation">
+          Add meaningful <code>alt</code> so screen readers and failed loads
+          have a description.
+        </p>
+        <pre
+          class="code-snapshot"
+          aria-label="Code snapshot"
+        ><code>&lt;img src="banner.jpg" alt="Blue banner with placeholder text for accessibility example"&gt;</code></pre>
+      </section>
+
+      <section class="demo-section" aria-labelledby="fix3-heading">
+        <h2 id="fix3-heading">3. Keyboard not supported</h2>
+        <p class="explanation">
+          Use a real <code>&lt;button&gt;</code> so it’s focusable and works
+          with Enter/Space.
+        </p>
+        <pre
+          class="code-snapshot"
+          aria-label="Code snapshot"
+        ><code>&lt;button type="button" onclick="..."&gt;Submit action&lt;/button&gt;</code></pre>
+      </section>
+
+      <section class="demo-section" aria-labelledby="fix4-heading">
+        <h2 id="fix4-heading">4. No visible focus</h2>
+        <p class="explanation">
+          Don’t remove outline; add a clear focus style so keyboard users see
+          focus.
+        </p>
+        <pre
+          class="code-snapshot"
+          aria-label="Code snapshot"
+        ><code>a:focus-visible, button:focus-visible {
+  outline: 2px solid #0066cc;
+  outline-offset: 2px;
+}</code></pre>
+      </section>
+
+      <section class="demo-section" aria-labelledby="fix5-heading">
+        <h2 id="fix5-heading">5. Forms without labels or clear errors</h2>
+        <p class="explanation">
+          Use <code>&lt;label for="id"&gt;</code>, specific error text, and
+          <code>aria-describedby</code> for the error.
+        </p>
+        <pre
+          class="code-snapshot"
+          aria-label="Code snapshot"
+        ><code>&lt;label for="email"&gt;Email address&lt;/label&gt;
+&lt;input type="email" id="email" aria-describedby="err" aria-invalid="false" required&gt;
+&lt;span id="err" role="alert" aria-live="polite"&gt;Please enter a valid email.&lt;/span&gt;</code></pre>
+      </section>
+
+      <section class="demo-section" aria-labelledby="fix6-heading">
+        <h2 id="fix6-heading">6. Missing ARIA labels (icon-only button)</h2>
+        <p class="explanation">
+          Give an accessible name: <code>aria-label</code>
+        </p>
+        <pre
+          class="code-snapshot"
+          aria-label="Code snapshot"
+        ><code>&lt;button type="button" aria-label="Search"&gt;🔍&lt;/button&gt;
+</code></pre>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <a href="accessibility-issues.html">← Issues</a>
+      <a href="accessibility-fixed.html" style="margin-left: 1rem">Fixed →</a>
+    </footer>
+  </body>
+</html>

@@ -7,6 +7,7 @@ A minimal before-and-after accessibility demo (plain HTML, CSS, minimal JavaScri
 | Page | Purpose |
 |------|--------|
 | [accessibility-issues.html](accessibility-issues.html) | Intentionally includes 6 common issues; fails Lighthouse/BrowserStack/axe |
+| [accessibility-how-to-fix.html](accessibility-how-to-fix.html) | How we fix each issue + minimal code snapshots |
 | [accessibility-fixed.html](accessibility-fixed.html) | Same content, fixed; passes accessibility checks |
 
 ## Issues covered
