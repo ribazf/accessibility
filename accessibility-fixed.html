@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility Demo – Fixed (After)</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ========== ACCESSIBLE STYLES ========== */
+
+    /* Issue 4 FIX: Visible focus – do not remove outline; add clear focus style */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 2px solid #0066cc;
+      outline-offset: 2px;
+    }
+    /* Fallback for older browsers */
+    a:focus, button:focus, input:focus {
+      outline: 2px solid #0066cc;
+      outline-offset: 2px;
+    }
+
+    /* Issue 1 FIX: Sufficient contrast – passes WCAG AA (e.g. 4.5:1+ for text) */
+    .good-contrast {
+      color: #1a1a1a;
+      background-color: #ffffff;
+      /* #1a1a1a on #ffffff ≈ 15.8:1 ratio */
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1>Accessibility Demo – Fixed Version</h1>
+    <p>This page corrects the same components. It should pass Lighthouse/BrowserStack accessibility checks and avoid major WCAG violations.</p>
+    <nav aria-label="Demo navigation">
+      <a href="accessibility-issues.html">← View issues version</a>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <!-- ========== Fix 1: Sufficient color contrast ========== -->
+    <section class="demo-section" aria-labelledby="fix1-heading">
+      <h2 id="fix1-heading">1. Fixed: Sufficient color contrast</h2>
+      <p class="explanation">Text now uses dark gray (#1a1a1a) on white, which exceeds WCAG AA (4.5:1). Comment in code notes the contrast ratio.</p>
+      <p class="good-contrast">
+        This paragraph has sufficient contrast. It is readable for people with low vision and in various lighting. We use dark text on a light background to meet WCAG AA.
+      </p>
+    </section>
+
+    <!-- ========== Fix 2: Meaningful alt text ========== -->
+    <section class="demo-section" aria-labelledby="fix2-heading">
+      <h2 id="fix2-heading">2. Fixed: Image with description</h2>
+      <p class="explanation">The image has meaningful <code>alt</code> text so screen readers can describe it and users get context if the image does not load.</p>
+      <!-- GOOD: Alt describes purpose/content of image -->
+      <img src="https://placehold.co/400x200/4a90d9/ffffff?text=Demo+Image" width="400" height="200" alt="Demo illustration: blue banner with placeholder text for accessibility example">
+    </section>
+
+    <!-- ========== Fix 3: Keyboard support with real button ========== -->
+    <section class="demo-section" aria-labelledby="fix3-heading">
+      <h2 id="fix3-heading">3. Fixed: Keyboard support</h2>
+      <p class="explanation">A real <code>&lt;button&gt;</code> is used. It is focusable with Tab and activates with Enter and Space. No custom keyboard handling needed.</p>
+      <!-- GOOD: Native button – focusable, keyboard activatable, announced as button -->
+      <button type="button" class="fake-button" onclick="alert('Clicked!')">Submit action</button>
+    </section>
+
+    <!-- ========== Fix 4: Visible focus state ========== -->
+    <section class="demo-section" aria-labelledby="fix4-heading">
+      <h2 id="fix4-heading">4. Fixed: Visible focus state</h2>
+      <p class="explanation">Focus outline is not removed. We use <code>:focus-visible</code> (and <code>:focus</code> fallback) so keyboard users see a clear focus ring.</p>
+      <p>
+        <a href="#fix4-heading">Sample link</a>
+        <button type="button">Sample button</button>
+      </p>
+    </section>
+
+    <!-- ========== Fix 5: Labels and clear error messages ========== -->
+    <section class="demo-section" aria-labelledby="fix5-heading">
+      <h2 id="fix5-heading">5. Fixed: Labels and clear error messages</h2>
+      <p class="explanation">Each input has a <code>&lt;label for="..."&gt;</code>. Errors are specific and linked with <code>aria-describedby</code>. <code>required</code> is used where appropriate.</p>
+      <form class="demo-form" id="good-form" novalidate>
+        <label for="good-email">Email address</label>
+        <input type="email" id="good-email" name="email" required aria-required="true" aria-describedby="good-error" aria-invalid="false" placeholder="you@example.com">
+        <span class="error-msg" id="good-error" role="alert" aria-live="polite" hidden></span>
+        <button type="submit">Sign up</button>
+      </form>
+    </section>
+
+    <!-- ========== Fix 6: ARIA label for icon-only button ========== -->
+    <section class="demo-section" aria-labelledby="fix6-heading">
+      <h2 id="fix6-heading">6. Fixed: ARIA label for icon-only button</h2>
+      <p class="explanation">The search button has <code>aria-label="Search"</code>. Screen readers announce “Search, button” so users understand the control without visible text.</p>
+      <!-- GOOD: Accessible name for icon-only button -->
+      <button type="button" class="icon-button" aria-label="Search">🔍</button>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <a href="accessibility-issues.html">← Back to issues version</a>
+  </footer>
+
+  <script>
+    // Minimal JS: clear, specific error and aria-describedby
+    var form = document.getElementById('good-form');
+    var input = document.getElementById('good-email');
+    var err = document.getElementById('good-error');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var val = input.value.trim();
+      if (!val) {
+        err.textContent = 'Please enter your email address.';
+        err.hidden = false;
+        input.setAttribute('aria-invalid', 'true');
+      } else if (!val.includes('@') || !val.includes('.')) {
+        err.textContent = 'Please enter a valid email address (e.g. name@example.com).';
+        err.hidden = false;
+        input.setAttribute('aria-invalid', 'true');
+      } else {
+        err.hidden = true;
+        err.textContent = '';
+        input.setAttribute('aria-invalid', 'false');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility Demo – Issues (Before)</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ========== INTENTIONAL BAD STYLES (for demo only) ========== */
+
+    /* Issue 4: Removes visible focus – fails accessibility */
+    a, button, input, [onclick] {
+      outline: none;
+    }
+    /* Some sites use outline: 0 or outline: none; keyboard users cannot see focus. */
+
+    /* Issue 1: Low contrast – light gray on white, fails WCAG AA (ratio < 4.5:1) */
+    .bad-contrast {
+      color: #b0b0b0;
+      background-color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1>Accessibility Demo – Common Issues</h1>
+    <p>This page intentionally includes accessibility problems. Use with BrowserStack, Lighthouse, or axe to see failures.</p>
+    <nav aria-label="Demo navigation">
+      <a href="accessibility-fixed.html">View fixed version →</a>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <!-- ========== Issue 1: Low color contrast ========== -->
+    <section class="demo-section" aria-labelledby="issue1-heading">
+      <h2 id="issue1-heading">1. Low color contrast</h2>
+      <p class="explanation">Below, text uses light gray on white. This fails WCAG AA (requires at least 4.5:1 for normal text). Many users with low vision or in bright light cannot read it.</p>
+      <p class="bad-contrast">
+        This paragraph has very low contrast. It is hard to read for people with visual impairments or in bright environments. Do not use light gray (#b0b0b0) on white.
+      </p>
+    </section>
+
+    <!-- ========== Issue 2: Missing image description ========== -->
+    <section class="demo-section" aria-labelledby="issue2-heading">
+      <h2 id="issue2-heading">2. Missing image description (no alt text)</h2>
+      <p class="explanation">The image below has no <code>alt</code> attribute. Screen readers cannot describe the image, and if the image fails to load, there is no fallback text.</p>
+      <!-- BAD: No alt attribute – screen readers may read the filename or skip meaning -->
+      <img src="https://placehold.co/400x200/4a90d9/ffffff?text=Demo+Image" width="400" height="200">
+    </section>
+
+    <!-- ========== Issue 3: Keyboard not supported ========== -->
+    <section class="demo-section" aria-labelledby="issue3-heading">
+      <h2 id="issue3-heading">3. Keyboard not supported</h2>
+      <p class="explanation">The “button” below is a <code>&lt;div&gt;</code> with <code>onclick</code>. It is not focusable with Tab and does not activate with Enter or Space. Keyboard-only and screen reader users cannot use it.</p>
+      <!-- BAD: Not focusable, no keyboard support, not a button -->
+      <div class="fake-button" onclick="alert('Clicked!')">Submit action</div>
+    </section>
+
+    <!-- ========== Issue 4: No visible focus state ========== -->
+    <section class="demo-section" aria-labelledby="issue4-heading">
+      <h2 id="issue4-heading">4. No visible focus state</h2>
+      <p class="explanation">Links and buttons on this page have <code>outline: none</code>. When you tab through the page, there is no visible focus ring, so keyboard users cannot tell which element is focused.</p>
+      <p>
+        <a href="#issue4-heading">Sample link</a>
+        <button type="button">Sample button</button>
+      </p>
+    </section>
+
+    <!-- ========== Issue 5: Forms without labels or clear errors ========== -->
+    <section class="demo-section" aria-labelledby="issue5-heading">
+      <h2 id="issue5-heading">5. Forms without labels or clear error messages</h2>
+      <p class="explanation">Inputs use only placeholders (no <code>&lt;label&gt;</code>). The error message is vague (“Error”) and not associated with the field via <code>aria-describedby</code>. Screen reader users do not get clear guidance.</p>
+      <form class="demo-form" id="bad-form" novalidate>
+        <input type="email" placeholder="Email" name="email" id="bad-email">
+        <span class="error-msg" id="bad-error" role="alert" hidden>Error</span>
+        <button type="submit">Sign up</button>
+      </form>
+    </section>
+
+    <!-- ========== Issue 6: Missing ARIA labels ========== -->
+    <section class="demo-section" aria-labelledby="issue6-heading">
+      <h2 id="issue6-heading">6. Missing ARIA labels (icon-only button)</h2>
+      <p class="explanation">The search icon below has no <code>aria-label</code>. Screen readers only announce “button” with no context. Users cannot know it is a search button.</p>
+      <!-- BAD: Icon-only button with no accessible name -->
+      <button type="button" class="icon-button">🔍</button>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <a href="accessibility-fixed.html">See corrected version →</a>
+  </footer>
+
+  <script>
+    // Minimal JS: show vague error (accessibility anti-pattern)
+    document.getElementById('bad-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = document.getElementById('bad-email').value;
+      var err = document.getElementById('bad-error');
+      if (!email || !email.includes('@')) {
+        err.textContent = 'Error';
+        err.hidden = false;
+      } else {
+        err.hidden = true;
+      }
+    });
+  </script>
+</body>
+</html>
