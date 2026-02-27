@@ -24,7 +24,7 @@
     <header class="page-header">
       <h1>How We Fix the Issues</h1>
       <p>
-        Brief fix and code snapshot for each of the six accessibility issues.
+        Brief fix and code snapshot for each of the eight accessibility issues.
       </p>
       <nav aria-label="Demo navigation">
         <a href="accessibility-issues.html">← Issues</a>
@@ -69,13 +69,16 @@
       <section class="demo-section" aria-labelledby="fix3-heading">
         <h2 id="fix3-heading">3. Keyboard not supported</h2>
         <p class="explanation">
-          Use a real <code>&lt;button&gt;</code> so it’s focusable and works
-          with Enter/Space.
+          Option A: Use a real <code>&lt;button&gt;</code>. Option B: Keep the <code>&lt;div&gt;</code> but add <code>role="button"</code>, <code>tabindex="0"</code>, and a keydown handler so Enter/Space activate it.
         </p>
-        <pre
-          class="code-snapshot"
-          aria-label="Code snapshot"
-        ><code>&lt;button type="button" onclick="..."&gt;Submit action&lt;/button&gt;</code></pre>
+        <pre class="code-snapshot" aria-label="Code snapshot"><code>&lt;!-- Option A: native button (preferred) --&gt;
+&lt;button type="button" onclick="doAction()"&gt;Submit action&lt;/button&gt;
+
+&lt;!-- Option B: keep div, add role + tabindex + keyboard --&gt;
+&lt;div role="button" tabindex="0" onclick="doAction()"
+     onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();doAction();}"&gt;
+  Submit action
+&lt;/div&gt;</code></pre>
       </section>
 
       <section class="demo-section" aria-labelledby="fix4-heading">
@@ -110,13 +113,32 @@
       <section class="demo-section" aria-labelledby="fix6-heading">
         <h2 id="fix6-heading">6. Missing ARIA labels (icon-only button)</h2>
         <p class="explanation">
-          Give an accessible name: <code>aria-label</code>
+          Give an accessible name: <code>aria-label</code> or visible text (e.g. visually hidden).
         </p>
-        <pre
-          class="code-snapshot"
-          aria-label="Code snapshot"
-        ><code>&lt;button type="button" aria-label="Search"&gt;🔍&lt;/button&gt;
-</code></pre>
+        <pre class="code-snapshot" aria-label="Code snapshot"><code>&lt;!-- Option 1: aria-label --&gt;
+&lt;button type="button" aria-label="Search"&gt;🔍&lt;/button&gt;
+
+&lt;!-- Option 2: visually hidden text --&gt;
+&lt;button type="button"&gt;&lt;span class="visually-hidden"&gt;Search&lt;/span&gt;🔍&lt;/button&gt;</code></pre>
+      </section>
+
+      <section class="demo-section" aria-labelledby="fix7-heading">
+        <h2 id="fix7-heading">7. Not in tab order</h2>
+        <p class="explanation">
+          Add <code>tabindex="0"</code> so the element is focusable with Tab. If it’s clickable, add <code>role="button"</code> and handle Enter/Space in keydown.
+        </p>
+        <pre class="code-snapshot" aria-label="Code snapshot"><code>&lt;div role="button" tabindex="0" onclick="..." onkeydown="if(e.key==='Enter'||e.key===' ') { e.preventDefault(); ... }"&gt;
+  Skip to content
+&lt;/div&gt;</code></pre>
+      </section>
+
+      <section class="demo-section" aria-labelledby="fix8-heading">
+        <h2 id="fix8-heading">8. Missing role (heading)</h2>
+        <p class="explanation">
+          Add <code>role="heading"</code> and <code>aria-level="1"</code>–<code>"6"</code> so screen readers announce it as a heading. Prefer <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> when possible.
+        </p>
+        <pre class="code-snapshot" aria-label="Code snapshot"><code>&lt;!-- div styled as heading: add role + level --&gt;
+&lt;div class="title" role="heading" aria-level="2"&gt;Section title&lt;/div&gt;</code></pre>
       </section>
     </main>
 

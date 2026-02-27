@@ -126,6 +126,24 @@ body {
   border: 0;
 }
 
+.skip-link {
+  display: inline-block;
+  padding: 0.4rem 0.75rem;
+  background: #333;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  min-width: 24px;
+  min-height: 24px;
+}
+
+.fake-heading {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
+}
+
 .page-footer {
   padding-top: 1rem;
   border-top: 1px solid #ccc;

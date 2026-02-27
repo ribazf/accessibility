@@ -6,7 +6,7 @@ A minimal before-and-after accessibility demo (plain HTML, CSS, minimal JavaScri
 
 | Page | Purpose |
 |------|--------|
-| [accessibility-issues.html](accessibility-issues.html) | Intentionally includes 6 common issues; fails Lighthouse/BrowserStack/axe |
+| [accessibility-issues.html](accessibility-issues.html) | Intentionally includes 8 common issues; fails Lighthouse/BrowserStack/axe |
 | [accessibility-how-to-fix.html](accessibility-how-to-fix.html) | How we fix each issue + minimal code snapshots |
 | [accessibility-fixed.html](accessibility-fixed.html) | Same content, fixed; passes accessibility checks |
 
@@ -18,6 +18,8 @@ A minimal before-and-after accessibility demo (plain HTML, CSS, minimal JavaScri
 4. **No visible focus** – `outline: none` vs visible focus styles  
 5. **Forms without labels/errors** – placeholder-only, vague “Error” vs labels and `aria-describedby`  
 6. **Missing ARIA labels** – icon-only button without `aria-label` vs with `aria-label`  
+7. **Not in tab order** – interactive element not focusable vs `tabindex="0"` (+ keyboard handler)  
+8. **Missing role** – div styled as heading vs `role="heading"` / `aria-level`  
 
 ## Hosting on GitLab
 

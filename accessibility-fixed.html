@@ -11,12 +11,13 @@
     /* Issue 4 FIX: Visible focus – do not remove outline; add clear focus style */
     a:focus-visible,
     button:focus-visible,
-    input:focus-visible {
+    input:focus-visible,
+    [tabindex="0"]:focus-visible {
       outline: 2px solid #0066cc;
       outline-offset: 2px;
     }
     /* Fallback for older browsers */
-    a:focus, button:focus, input:focus {
+    a:focus, button:focus, input:focus, [tabindex="0"]:focus {
       outline: 2px solid #0066cc;
       outline-offset: 2px;
     }
@@ -94,6 +95,24 @@
       <!-- GOOD: Accessible name for icon-only button -->
       <button type="button" class="icon-button"><span class="visually-hidden">Search</span>🔍</button>
     </section>
+
+    <!-- ========== Fix 7: tabindex so element is in tab order ========== -->
+    <section class="demo-section" aria-labelledby="fix7-heading">
+      <h2 id="fix7-heading">7. Fixed: In tab order with tabindex</h2>
+      <p class="explanation">Add <code>tabindex="0"</code> so the element is focusable with Tab. Add a keydown handler so Enter/Space activate it like a button.</p>
+      <!-- GOOD: tabindex="0" puts it in tab order; keydown handles Enter/Space -->
+      <div class="skip-link" id="skip-trigger" tabindex="0" role="button" aria-label="Skip to content" onclick="skipToContent()" onkeydown="skipKeydown(event)">Skip to content</div>
+      <div id="fix7-content" tabindex="-1">Content area (receives focus when skip is activated).</div>
+    </section>
+
+    <!-- ========== Fix 8: role for heading ========== -->
+    <section class="demo-section" aria-labelledby="fix8-heading">
+      <h2 id="fix8-heading">8. Fixed: Role for heading</h2>
+      <p class="explanation">Add <code>role="heading"</code> and <code>aria-level</code> (1–6) so screen readers announce it as a heading and include it in the document outline. Prefer using a real <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> when possible.</p>
+      <!-- GOOD: role="heading" aria-level exposes heading to assistive tech -->
+      <div class="fake-heading" role="heading" aria-level="2">Section title</div>
+      <p>Content under the section title.</p>
+    </section>
   </main>
 
   <footer class="page-footer">
@@ -102,6 +121,16 @@
   </footer>
 
   <script>
+    // Skip to content (for tabindex demo)
+    function skipToContent() {
+      document.getElementById('fix7-content').focus();
+    }
+    function skipKeydown(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        skipToContent();
+      }
+    }
     // Minimal JS: clear, specific error and aria-describedby
     var form = document.getElementById('good-form');
     var input = document.getElementById('good-email');

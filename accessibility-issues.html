@@ -85,6 +85,24 @@
       <!-- BAD: Icon-only button with no accessible name -->
       <button type="button" class="icon-button">🔍</button>
     </section>
+
+    <!-- ========== Issue 7: Not in tab order ========== -->
+    <section class="demo-section" aria-labelledby="issue7-heading">
+      <h2 id="issue7-heading">7. Not in tab order</h2>
+      <p class="explanation">The “Skip to content” below is a <code>&lt;div&gt;</code> with <code>onclick</code>. It has no <code>tabindex</code>, so it is not focusable. Keyboard users cannot tab to it.</p>
+      <!-- BAD: Interactive element not in tab order -->
+      <div class="skip-link" onclick="document.getElementById('issue7-content').focus()">Skip to content</div>
+      <div id="issue7-content" tabindex="-1">Content area (should receive focus when skip is activated).</div>
+    </section>
+
+    <!-- ========== Issue 8: Missing role ========== -->
+    <section class="demo-section" aria-labelledby="issue8-heading">
+      <h2 id="issue8-heading">8. Missing role (heading)</h2>
+      <p class="explanation">The “heading” below is a <code>&lt;div&gt;</code> styled to look like a heading. It has no <code>role="heading"</code> or <code>aria-level</code>, so screen readers don’t expose it as a heading and users can’t navigate by headings.</p>
+      <!-- BAD: No heading role – screen reader doesn't announce as heading -->
+      <div class="fake-heading">Section title</div>
+      <p>Content under the section title.</p>
+    </section>
   </main>
 
   <footer class="page-footer">
